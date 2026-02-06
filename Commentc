@@ -1,0 +1,18 @@
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char s[200];
+
+    printf("Enter a line: ");
+    fgets(s, 200, stdin);
+
+    if (strncmp(s, "//", 2) == 0)
+        printf("Single-line Comment");
+    else if (strncmp(s, "/*", 2) == 0 && strstr(s, "*/"))
+        printf("Multi-line Comment");
+    else
+        printf("Not a Comment");
+
+    return 0;
+}
