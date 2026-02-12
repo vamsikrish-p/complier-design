@@ -1,0 +1,20 @@
+%{
+#include <stdio.h>
+%}
+
+%%
+https?:\/\/[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}([\/a-zA-Z0-9._-]*)?
+        { printf("%s → VALID URL\n", yytext); }
+
+.*\n    { printf("%s → INVALID URL\n", yytext); }
+%%
+
+int yywrap() {
+    return 1;
+}
+
+int main() {
+    printf("Enter URLs:\n");
+    yylex();
+    return 0;
+}
