@@ -1,0 +1,23 @@
+%{
+#include <stdio.h>
+int vow_count = 0;
+int const_count = 0;
+%}
+
+%%
+[aeiouAEIOU]     { vow_count++; }
+[b-df-hj-np-tv-zB-DF-HJ-NP-TV-Z] { const_count++; }
+.|\n             ;
+%%
+
+int yywrap() {
+    return 1;
+}
+
+int main() {
+    printf("Enter the string:\n");
+    yylex();
+    printf("Number of vowels: %d\n", vow_count);
+    printf("Number of consonants: %d\n", const_count);
+    return 0;
+}
