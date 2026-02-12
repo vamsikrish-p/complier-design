@@ -1,0 +1,17 @@
+%{
+#include <stdio.h>
+%}
+
+%%
+[/]{2}.*\n     { printf("%s is COMMENT\n", yytext); }
+.*\n           { printf("%s is NOT A COMMENT\n", yytext); }
+%%
+
+int yywrap() {
+    return 1;
+}
+
+int main() {
+    yylex();
+    return 0;
+}
