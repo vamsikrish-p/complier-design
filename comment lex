@@ -1,0 +1,21 @@
+%{
+#include <stdio.h>
+int nc = 0;
+%}
+
+%%
+"/*"([^*]|\*+[^*/])*\*+"/"    { nc++; }
+"//".*                        { nc++; }
+.|\n                          ;
+%%
+
+int yywrap() {
+    return 1;
+}
+
+int main(int argc, char *argv[]) {
+    yyin = fopen(argv[1], "r");
+    yylex();
+    printf("The number of comments = %d\n", nc);
+    return 0;
+}
