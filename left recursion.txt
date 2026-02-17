@@ -1,0 +1,49 @@
+#include <stdio.h>
+#include <string.h>
+
+int main()
+{
+    char nonRec[10][20], rec[10][20];
+    int i, n = 2;   // Number of productions for L
+    int nonRecCount = 0, recCount = 0;
+
+    // Given productions for L
+    char productions[2][20] = {"L,S", "S"};
+
+    printf("Given Grammar:\n");
+    printf("S -> (L) | a\n");
+    printf("L -> L,S | S\n");
+
+    // Separate recursive and non-recursive productions
+    for(i = 0; i < n; i++)
+    {
+        if(productions[i][0] == 'L')
+        {
+            strcpy(rec[recCount++], productions[i] + 1);
+        }
+        else
+        {
+            strcpy(nonRec[nonRecCount++], productions[i]);
+        }
+    }
+
+    // Print new grammar
+    printf("\nGrammar After Eliminating Left Recursion:\n");
+    printf("S -> (L) | a\n");
+
+    printf("L -> ");
+    for(i = 0; i < nonRecCount; i++)
+    {
+        printf("%sL'", nonRec[i]);
+        if(i != nonRecCount-1) printf(" | ");
+    }
+
+    printf("\nL' -> ");
+    for(i = 0; i < recCount; i++)
+    {
+        printf("%sL' | ", rec[i]);
+    }
+    printf("ε\n");
+
+    return 0;
+}

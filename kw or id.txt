@@ -1,0 +1,28 @@
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+int main() {
+    char word[20];
+    char *keywords[] = {"int","float","if","else","while","for","return"};
+    int i, isKey = 0;
+
+    printf("Enter a word: ");
+    scanf("%s", word);
+
+    for(i = 0; i < 7; i++) {
+        if(strcmp(word, keywords[i]) == 0) {
+            isKey = 1;
+            break;
+        }
+    }
+
+    if(isKey)
+        printf("Keyword\n");
+    else if(isalpha(word[0]) || word[0] == '_')
+        printf("Identifier\n");
+    else
+        printf("Invalid\n");
+
+    return 0;
+}

@@ -1,0 +1,31 @@
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char stack[20], input[20];
+    int top = -1, i = 0;
+
+    printf("Enter string: ");
+    scanf("%s", input);
+
+    while (input[i] != '\0') {
+        stack[++top] = input[i];   // Shift
+
+        if (stack[top] == 'i')     // Reduce E->i
+            stack[top] = 'E';
+
+        if (top >= 2 && stack[top]=='E' &&
+            stack[top-1]=='+' && stack[top-2]=='E') {
+            top -= 2;              // Reduce E->E+E
+            stack[top] = 'E';
+        }
+        i++;
+    }
+
+    if (top == 0 && stack[top] == 'E')
+        printf("Accepted\n");
+    else
+        printf("Rejected\n");
+
+    return 0;
+}
